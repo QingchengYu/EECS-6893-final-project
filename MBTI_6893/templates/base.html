@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MBTI Project</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/base.css') }}">
+</head>
+<body>
+    <div class="navbar">
+       <a href="{{ url_for('index') }}">Home</a>
+        <a href="#">Model</a>
+        <a href="{{ url_for('about') }}">About</a>
+      <div class="dropdown">
+        <button class="dropbtn">Personality Types
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+            <a href="{{ url_for('intj') }}">INTJ</a>
+            <a href="#">INTP</a>
+            <a href="#">ENTJ</a>
+            <a href="#">ENTP</a>
+            <a href="#">INFJ</a>
+            <a href="#">INFP</a>
+            <a href="#">ENFJ</a>
+            <a href="#">ENFP</a>
+            <a href="#">ISTJ</a>
+            <a href="#">ISTP</a>
+            <a href="#">ESTJ</a>
+            <a href="#">ESTP</a>
+            <a href="#">ISFJ</a>
+            <a href="#">ISFP</a>
+            <a href="#">ESFJ</a>
+            <a href="#">ESFP</a>
+        </div>
+      </div>
+    </div>
+    {%  block main %}
+    {%  endblock %}
+
+</body>
+</html>
