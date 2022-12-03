@@ -30,7 +30,7 @@
             <a href="#">ISFJ</a>
             <a href="#">ISFP</a>
             <a href="#">ESFJ</a>
-            <a href="#">ESFP</a>
+            <a href="{{ url_for('esfp') }}">ESFP</a>
         </div>
       </div>
     </div>
@@ -43,7 +43,7 @@
     <div class="row">
       <div class="column">
         <div class="card">
-          <img src="{{ url_for('static', filename='images/sjr.png') }}" alt="Jane" style="width:100%">
+          <img src="{{ url_for('static', filename='images/sjr.png') }}" alt="Jiarong Shi" style="width:100%">
           <div class="container">
             <h2>Jiarong Shi</h2>
             <p class="title">Team Leader</p>
@@ -56,12 +56,12 @@
 
       <div class="column">
         <div class="card">
-          <img src="/w3images/team2.jpg" alt="Mike" style="width:100%">
+          <img src="{{ url_for('static', filename='images/zyt.jpg') }}" alt="Yutao Zhou" style="width:100%">
           <div class="container">
             <h2>Yutao Zhou</h2>
-            <p class="title">Art Director</p>
-            <p>Some text that describes me lorem ipsum ipsum lorem.</p>
-            <p>mike@example.com</p>
+            <p class="title">Developer</p>
+            <p class="why-text">Responsible for web design, backend and deploy to GCP</p>
+            <p class="why-text">yz4359@columbia.edu</p>
             <p><button class="button">Contact</button></p>
           </div>
         </div>
