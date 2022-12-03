@@ -12,6 +12,7 @@ def predict(username):
     time.sleep(5)
     return 'intj'
 
+
 @app.route('/index')
 @app.route('/')
 def index():  # put application's code here
@@ -25,6 +26,8 @@ def get_username():
     # calculating
     if predict(username) == 'intj':
         return render_template("intj.html")
+    if predict(username) == 'intp':
+        return render_template("intp.html")
     if predict(username) == 'esfp':
         return render_template("esfp.html")
     else:
@@ -40,9 +43,16 @@ def about():
 def intj():
     return render_template('intj.html')
 
+
+@app.route('/intp', methods=['GET', 'POST'])
+def intp():
+    return render_template('intp.html')
+
+
 @app.route('/esfp', methods=['GET', 'POST'])
 def esfp():
     return render_template('esfp.html')
+
 
 if __name__ == '__main__':
     app.run()
