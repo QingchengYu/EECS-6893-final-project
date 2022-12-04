@@ -30,6 +30,8 @@ def get_username():
         return render_template("intp.html")
     if predict(username) == 'esfp':
         return render_template("esfp.html")
+    if predict(username) == 'esfj':
+        return render_template("esfj.html")
     else:
         return render_template("index.html")
 
@@ -53,6 +55,9 @@ def intp():
 def esfp():
     return render_template('esfp.html')
 
+@app.route('/esfj', methods=['GET', 'POST'])
+def esfj():
+    return render_template('esfj.html')
 
 if __name__ == '__main__':
     app.run()
