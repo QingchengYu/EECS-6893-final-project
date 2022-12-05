@@ -1,16 +1,59 @@
 from flask import Flask, request, render_template
+import tweepy
+import re
+import pickle
+from nltk.stem.snowball import SnowballStemmer
 import warnings
-from flask_sqlalchemy import SQLAlchemy
-import time
 
 warnings.filterwarnings('ignore')
+s_stemmer = SnowballStemmer(language='english')
+
+consumer_key = "aGgWXgGEVuTtXODmmTn5pN9BN"
+consumer_secret = "7I2MgjyGcrgyXVziqFtlm3777HMH5IQA6A8A5XwMjrqdyVFOS2"
+access_token = "1578553498161004544-U04dW5oNZB73iETRcaAazL8nf3Kh9n"
+access_token_secret = "TW3uuJArfGnE6f02upRUBf7LeFWvGXdDC26Q2zf8bKafH"
+
+stopwords_path = './model/stopwords.txt'
+stopwords = []
+with open(stopwords_path, 'r') as f:
+    for line in f:
+        stopwords.append(line.strip('\n'))
+
+model_path = './model/lm.sav'
+model = pickle.load(open(model_path, 'rb'))
+transformer_path = './model/vec_tfidf.pkl'
+vec_transformer = pickle.load(open(transformer_path, 'rb'))
 
 app = Flask(__name__)
 
 
-def predict(username):
-    time.sleep(5)
-    return 'intj'
+def get_user_tweets(username):
+    client = tweepy.Client(consumer_key=consumer_key,
+                           consumer_secret=consumer_secret,
+                           access_token=access_token, access_token_secret=access_token_secret)
+    user_id = client.get_user(username=username, user_auth=True).data.id
+    tweets = client.get_users_tweets(id=user_id, max_results=100, user_auth=True)
+    texts = []
+    for tweet in tweets.data:
+        texts.append(tweet.text)
+    return texts
+
+
+def data_process(tweets):
+    total = []
+    for line in tweets:
+        line = line.strip().lower().split(" ")
+        new_line = list(filter(lambda word: re.match('^[a-zA-Z]+$', word) != None and
+                                            word not in stopwords, line))
+        new_line = list(map(lambda word: s_stemmer.stem(word), new_line))
+        total = total + new_line
+    total = total + total
+    text_to_predict = " ".join(total[:500])
+    return text_to_predict
+
+
+def predict(data_to_predict):
+    return list(model.predict(vec_transformer.transform([data_to_predict])))[0]
 
 
 @app.route('/index')
@@ -24,13 +67,24 @@ def get_username():
     username = request.form.get('username')
     print(username)
     # calculating
-    if predict(username) == 'intj':
+    try:
+        tweets = get_user_tweets(username)
+    except:
+        return render_template("index.html")
+    data_to_predict = data_process(tweets)
+    result = predict(data_to_predict)
+    print(result)
+    if result == 'INTJ':
         return render_template("intj.html")
-    if predict(username) == 'intp':
+    elif result == 'INTP':
         return render_template("intp.html")
-    if predict(username) == 'esfp':
+    elif result == 'ENTJ':
+        return render_template("entj.html")
+    elif result == 'ENTP':
+        return render_template("entp.html")
+    elif result == 'ESFP':
         return render_template("esfp.html")
-    if predict(username) == 'esfj':
+    elif result == 'ESFJ':
         return render_template("esfj.html")
     else:
         return render_template("index.html")
@@ -51,13 +105,25 @@ def intp():
     return render_template('intp.html')
 
 
+@app.route('/entj', methods=['GET', 'POST'])
+def entj():
+    return render_template('entj.html')
+
+
+@app.route('/entp', methods=['GET', 'POST'])
+def entp():
+    return render_template('entp.html')
+
+
 @app.route('/esfp', methods=['GET', 'POST'])
 def esfp():
     return render_template('esfp.html')
+
 
 @app.route('/esfj', methods=['GET', 'POST'])
 def esfj():
     return render_template('esfj.html')
 
+
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
