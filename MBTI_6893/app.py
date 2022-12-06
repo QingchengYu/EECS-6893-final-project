@@ -82,10 +82,18 @@ def get_username():
         return render_template("entj.html")
     elif result == 'ENTP':
         return render_template("entp.html")
+    elif result == 'ISFP':
+        return render_template("isfp.html")
     elif result == 'ESFP':
         return render_template("esfp.html")
     elif result == 'ESFJ':
         return render_template("esfj.html")
+    elif result == 'ISFJ':
+        return render_template("isfj.html")
+    elif result == 'ESTP':
+        return render_template("estp.html")
+    elif result == 'ESTJ':
+        return render_template("estj.html")
     else:
         return render_template("index.html")
 
@@ -124,6 +132,21 @@ def esfp():
 def esfj():
     return render_template('esfj.html')
 
+@app.route('/isfp', methods=['GET', 'POST'])
+def isfp():
+    return render_template('isfp.html')
+
+@app.route('/isfj', methods=['GET', 'POST'])
+def isfj():
+    return render_template('isfj.html')
+
+@app.route('/estp', methods=['GET', 'POST'])
+def estp():
+    return render_template('estp.html')
+
+@app.route('/estj', methods=['GET', 'POST'])
+def estj():
+    return render_template('estj.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
