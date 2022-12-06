@@ -82,6 +82,10 @@ def get_username():
         return render_template("entj.html")
     elif result == 'ENTP':
         return render_template("entp.html")
+    elif result == 'INFJ':
+        return render_template("infj.html")
+    elif result == 'INFP':
+        return render_template("infp.html")
     elif result == 'ISFP':
         return render_template("isfp.html")
     elif result == 'ESFP':
@@ -122,6 +126,15 @@ def entj():
 def entp():
     return render_template('entp.html')
 
+
+@app.route('/infj', methods=['GET', 'POST'])
+def infj():
+    return render_template('infj.html')
+
+
+@app.route('/infp', methods=['GET', 'POST'])
+def infp():
+    return render_template('infp.html')
 
 @app.route('/esfp', methods=['GET', 'POST'])
 def esfp():

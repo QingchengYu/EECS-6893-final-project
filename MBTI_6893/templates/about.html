@@ -19,8 +19,8 @@
             <a href="{{ url_for('intp') }}">INTP</a>
             <a href="{{ url_for('entj') }}">ENTJ</a>
             <a href="{{ url_for('entp') }}">ENTP</a>
-            <a href="#">INFJ</a>
-            <a href="#">INFP</a>
+            <a href="{{ url_for('infj') }}">INFJ</a>
+            <a href="{{ url_for('infp') }}">INFP</a>
             <a href="#">ENFJ</a>
             <a href="#">ENFP</a>
             <a href="#">ISTJ</a>
@@ -46,7 +46,7 @@
           <img src="{{ url_for('static', filename='images/sjr.png') }}" alt="Jiarong Shi" style="width:100%">
           <div class="container">
             <h2>Jiarong Shi</h2>
-            <p class="title">Team Leader</p>
+            <p class="title">Developer</p>
             <p class="why-text">Responsible for web design and deep learning model training</p>
             <p class="why-text">js6132@columbia.edu</p>
             <p><button class="button">Contact</button></p>
@@ -69,12 +69,12 @@
 
       <div class="column">
         <div class="card">
-          <img src="/w3images/team3.jpg" alt="John" style="width:100%">
+          <img src="{{ url_for('static', filename='images/yqc.png') }}"  alt="Yutao Zhou" style="width:100%">
           <div class="container">
             <h2>Qingcheng Yu</h2>
-            <p class="title">Designer</p>
-            <p>Some text that describes me lorem ipsum ipsum lorem.</p>
-            <p>john@example.com</p>
+            <p class="title">Developer</p>
+            <p class="why-text">Responsible for data cleaning, machine learning model training</p>
+            <p class="why-text">qy2281@columbia.edu</p>
             <p><button class="button">Contact</button></p>
           </div>
         </div>
