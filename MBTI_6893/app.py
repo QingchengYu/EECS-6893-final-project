@@ -109,6 +109,9 @@ def get_username():
     else:
         return render_template("index.html")
 
+@app.route('/model', methods=['GET', 'POST'])
+def model():
+    return render_template('model.html')
 
 @app.route('/about', methods=['GET', 'POST'])
 def about():
