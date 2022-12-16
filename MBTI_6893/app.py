@@ -20,7 +20,7 @@ with open(stopwords_path, 'r') as f:
         stopwords.append(line.strip('\n'))
 
 model_path = './model/lm.sav'
-model = pickle.load(open(model_path, 'rb'))
+predict_model = pickle.load(open(model_path, 'rb'))
 transformer_path = './model/vec_tfidf.pkl'
 vec_transformer = pickle.load(open(transformer_path, 'rb'))
 
@@ -48,12 +48,14 @@ def data_process(tweets):
         new_line = list(map(lambda word: s_stemmer.stem(word), new_line))
         total = total + new_line
     total = total + total
+    while len(total) < 500:
+        total = total + total
     text_to_predict = " ".join(total[:500])
     return text_to_predict
 
 
 def predict(data_to_predict):
-    return list(model.predict(vec_transformer.transform([data_to_predict])))[0]
+    return list(predict_model.predict(vec_transformer.transform([data_to_predict])))[0]
 
 
 @app.route('/index')
